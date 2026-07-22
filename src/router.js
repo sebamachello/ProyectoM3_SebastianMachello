@@ -1,5 +1,5 @@
 import { homeView } from "./home.js";
-import { chatView } from "./chat.js";
+import { chatView, initializeChat } from "./chat.js";
 import { aboutView } from "./about.js";
 import { notFoundView } from "./notFound.js";
 
@@ -12,6 +12,7 @@ export function router() {
     app.innerHTML = homeView();
   } else if (path === "/chat") {
     app.innerHTML = chatView();
+    initializeChat();
   } else if (path === "/about") {
     app.innerHTML = aboutView();
   } else {
