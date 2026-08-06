@@ -1,4 +1,8 @@
-function chatView() {
+import { isValidMessage } from "./utils.js";
+
+const messages = [];
+
+export function chatView() {
   return `
     <section class="chat">
       <h1 class="chat__title">Chat con Deadpool</h1>
@@ -25,24 +29,24 @@ function chatView() {
 export function initializeChat() {
   const button = document.getElementById("send-button");
   const input = document.getElementById("message-input");
-  const messagesContainer = document.querySelector(".messages-container");
 
   button.addEventListener("click", async () => {
     const message = input.value.trim();
 
-    if (message === "") {
+    if (!isValidMessage(message)) {
       return;
     }
 
     input.value = "";
 
-    messagesContainer.innerHTML += `
-  <div class="message user">
-    ${message}
-  </div>
-`;
+    messages.push({
+      role: "user",
+      content: message,
+    });
 
-    const response = await fetch("/api/chat", {
+    renderMessages();
+
+    const response = await fetch("/api/functions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,12 +55,25 @@ export function initializeChat() {
     });
 
     const data = await response.json();
-    console.log(data.reply);
 
+    messages.push({
+      role: "deadpool",
+      content: data.reply,
+    });
+
+    renderMessages();
+
+  });
+}
+
+export function renderMessages() {
+  const messagesContainer = document.querySelector(".messages-container");
+  messagesContainer.innerHTML = "";
+  messages.forEach((message) => {
     messagesContainer.innerHTML += `
-  <div class="message deadpool">
-    ${data.reply}
-  </div>
-`;
+          <div class="message ${message.role}">
+            ${message.content}
+          </div>
+        `;
   });
 }

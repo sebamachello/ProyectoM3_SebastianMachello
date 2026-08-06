@@ -2,7 +2,6 @@ import { homeView } from "./home.js";
 import { chatView, initializeChat } from "./chat.js";
 import { aboutView } from "./about.js";
 import { notFoundView } from "./notFound.js";
-
 const app = document.getElementById("app");
 
 export function router() {
