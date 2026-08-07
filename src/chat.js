@@ -46,7 +46,14 @@ export function initializeChat() {
 
     renderMessages();
 
-    const response = await fetch("/api/functions", {
+    const fakeReply = "¡Hola! Soy Deadpool, el mercenario bocazas. ¿En qué puedo ayudarte hoy?";
+    messages.push({
+      role: "deadpool",
+      content: fakeReply,
+    });
+    renderMessages();
+
+    /* const response = await fetch("/api/functions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +69,7 @@ export function initializeChat() {
     });
 
     renderMessages();
+    */
 
   });
 }
