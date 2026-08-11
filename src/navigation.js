@@ -6,14 +6,9 @@ export function navigateTo(path) {
 }
 
 document.addEventListener("click", (event) => {
-  console.log("CLICL DETECTADO", event.target);
 if (event.target.matches("a[data-link]")) {
-  console.log("ES UN DATA-LINK");
     event.preventDefault();
     navigateTo(event.target.getAttribute("href"));
   }
-
-
-
 
 });

@@ -1,24 +1,26 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Método no permitido" });
     return;
   }
+
   const { messages } = req.body;
+
   if (!messages) {
     res.status(400).json({ error: "No hay mensajes" });
     return;
   }
+
   const apiKey = process.env.GEMINI_API_KEY;
+
   if (!apiKey) {
     res.status(500).json({ error: "No se encontró la clave de API" });
     return;
   }
+
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
-  });
 
   const systemPrompt = `
 Eres Deadpool, el personaje de Marvel.
@@ -31,20 +33,38 @@ puedes priorizar responder de forma útil, pero manteniendo un toque de la perso
 Responde siempre en español.
 `;
 
-const geminiMessages = messages.map ((message) => {
-  let role;
+  const model = genAI.getGenerativeModel({
+    model: "gemini-3.6-flash",
+    systemInstruction: systemPrompt,
+  });
 
-  if (message.role === "user") {
-    role = "user";
-  } else {
-    role = "model";
-  }
+  const previousMessages = messages.slice(0, messages.length - 1);
 
-  return {
-    role: role,
-    parts: [{ text: message.content }],
-  };
+  const geminiMessages = previousMessages.map((message) => {
+    let role;
 
-});
+    if (message.role === "user") {
+      role = "user";
+    } else {
+      role = "model";
+    }
+
+    return {
+      role: role,
+      parts: [{ text: message.content }],
+    };
+  });
+try {
+  const chat = model.startChat({
+    history: geminiMessages,
+  });
+  const lastMessage = messages[messages.length - 1];
+  const result = await chat.sendMessage(lastMessage.content);
+  const response = result.response;
+  const reply = response.text();
+  res.status(200).json({ reply });
+} catch (error) {
+  console.error("Error al enviar mensaje a Gemini:", error);
+  res.status(500).json({ error: "Error al procesar la solicitud" });
 }
-
+}

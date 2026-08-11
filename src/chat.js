@@ -46,30 +46,42 @@ export function initializeChat() {
 
     renderMessages();
 
-    const fakeReply = "¡Hola! Soy Deadpool, el mercenario bocazas. ¿En qué puedo ayudarte hoy?";
-    messages.push({
-      role: "deadpool",
-      content: fakeReply,
-    });
-    renderMessages();
+  button.disabled = true;
+  button.textContent = "Escribiendo...";
+ try {
+  const response = await fetch("/api/functions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ messages }),
+  });
 
-    /* const response = await fetch("/api/functions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
+  const data = await response.json();
 
-    const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error);
+  }
 
-    messages.push({
-      role: "deadpool",
-      content: data.reply,
-    });
+  messages.push({
+    role: "deadpool",
+    content: data.reply,
+  });
 
-    renderMessages();
-    */
+  renderMessages();
+} catch (error) {
+  console.error("Error al obtener respuesta:", error);
+
+  messages.push({
+    role: "deadpool",
+    content: "Ups, algo salió mal. Intentá de nuevo.",
+  });
+
+  renderMessages();
+} finally {
+  button.disabled = false;
+  button.textContent = "Enviar";
+}
 
   });
 }
@@ -84,4 +96,7 @@ export function renderMessages() {
           </div>
         `;
   });
+  
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+ 
 }
