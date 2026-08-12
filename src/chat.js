@@ -30,6 +30,8 @@ export function initializeChat() {
   const button = document.getElementById("send-button");
   const input = document.getElementById("message-input");
 
+  renderMessages();
+
   button.addEventListener("click", async () => {
     const message = input.value.trim();
 

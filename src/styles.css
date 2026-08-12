@@ -17,6 +17,9 @@ body {
 
 header {
   padding: 1rem;
+  position: relative;
+  z-index: 2;
+  background-color: #0b0b0b;
 }
 
 nav {
@@ -113,6 +116,12 @@ nav a:hover {
 
   .home__title {
     font-size: 3rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .home__image {
+    width: 220px;
   }
 }
 
