@@ -3,7 +3,7 @@ export function homeView() {
     <section class="home">
       <img
         class="home__image"
-        src="./assets/deadpool.png"
+        src="/src/assets/deadpool.webp"
         alt="Deadpool"
       >
 
