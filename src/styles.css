@@ -55,6 +55,8 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .home__image {
@@ -120,8 +122,16 @@ nav a:hover {
 }
 
 @media (max-height: 800px) {
+  .home {
+    justify-content: flex-start;
+  }
+
   .home__image {
-    width: 300px;
+    width: 260px;
+  }
+
+  .home__title {
+    font-size: 2rem;
   }
 }
 
