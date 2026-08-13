@@ -154,6 +154,11 @@ Las respuestas generadas fueron utilizadas como guía durante el desarrollo. Ant
 
 Entre las decisiones tomadas a partir de este proceso se encuentran mantener una estructura simple de módulos, separar el routing de la lógica del chat, mantener el historial de mensajes en memoria durante la sesión y utilizar una Serverless Function para evitar exponer la API key en el frontend.
 
+## Muestra de App
+
+en este link les dejo la muestra de la App funcionando.
+https://drive.google.com/drive/folders/1DlxdVLpC7FslzybHPuZaLJ9r188LOxMF?usp=sharing
+
 ## Autor
 
 Sebastián Machello
