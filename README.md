@@ -4,6 +4,9 @@ Chat Deadpool es una Single Page Application (SPA) desarrollada como Proyecto In
 
 La aplicación permite al usuario mantener una conversación con Deadpool utilizando inteligencia artificial. Las respuestas son con la ayuda de IA , utilizando el modelo "gemini-3.6-flash".
 
+Personaje elegido: Deadpool
+Deadpool es un personaje caracterizado por su humor sarcástico, personalidad irreverente y tendencia a romper la cuarta pared. En el chat, la IA busca mantener ese estilo mediante un system prompt con respuestas breves y humorísticas.
+
 ## Funcionalidades
 
 * Navegación SPA sin recargar la página.
@@ -122,7 +125,16 @@ El proyecto incluye tests para validar mensajes y tests utilizando mocking para 
 La aplicación está desplegada utilizando Vercel.
 
 **URL pública:**
-[AGREGAR URL DEL DEPLOY]
+https://chat-deadpool.vercel.app
+
+## Despliegue en Vercel
+
+1. Subir el proyecto a un repositorio de GitHub.
+2. Importar el repositorio desde Vercel.
+3. Configurar `GEMINI_API_KEY` en las Environment Variables del proyecto.
+4. Seleccionar Production como entorno.
+5. Realizar el deployment.
+6. Verificar que las rutas y la Serverless Function funcionen correctamente.
 
 ## Uso de Inteligencia Artificial durante el desarrollo
 
